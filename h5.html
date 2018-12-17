@@ -1,208 +1,317 @@
 <!DOCTYPE html>
-<!-- saved from url=(0070)http://www.csc.villanova.edu/~ekim/classes/CSC4380F18/hw4template.html -->
 <html class="gr__csc_villanova_edu">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-  <script type="text/javascript" src="./d3.min.js"></script>
-  <style>
-    .axis text {
-      font: 10px sans-serif;
-      color: #000;
-    }
-
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: #000;
-    }
-  </style>
-</head>
-
-<body data-gr-c-s-loaded="true">
-  <svg id="mySVG" width="1500" height="1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>
-  <br>
-  <script type="text/javascript">
-    var jsondata; //global to store json data
-
-    var svg = d3.select("svg");
-    //Padding to give you room for axes and labels
-    svg.style("padding-left", 100);
-    svg.style("padding-bottom", 100);
-
-    d3.json("comp-rev.json").then(function (data) {
-      console.log(data);
-      jsondata = data;
-      drawData();  //you need to create this function
-    });
-
-    var sy = d3.scaleLinear().domain([0, 140]).range([500, 0]);
-    var yaxis = d3.axisLeft(sy).ticks(14).tickFormat(d3.format("~s"));
-    var sx = d3.scaleLinear().domain([0, 48]).range([21, 1051]);
-    var xaxis = d3.axisBottom(sx).ticks(20).tickFormat(d3.format("~s"));
-
-    function drawData() {
-      svg.append("g").attr("class", "xaxis").attr("transform", "translate(13,510)").call(xaxis);
-      svg.append("g").attr("class", "yaxis").attr("transform", "translate(25,9)").call(yaxis);
-
-      for (var x = 1; x <= 4; x++) {
-        var color = "black";
-        var id = 0;
-        var value = jsondata.data[x];
-        var lineFunction = d3.line()
-          .x(function (d, i) { return (i + 1.6) * (800 / 38) })
-          .y(function (d, i) { return (510) - (d*3.5) });
-
-        if (x == 1) {
-          lineClass = "line2011";
-          color = "red";
-        }
-        if (x == 2) {
-          lineClass = "line2012";
-          color = "green";
-        }
-        if (x == 3) {
-          lineClass = "line2013";
-          color = "blue";
-        }
-        if (x == 4) {
-          lineClass = "line2014";
-          color = "orange";
-        }
-
-        svg.append("path")
-          .attr("d", lineFunction(value))
-          .attr("stroke", color)
-          .attr("stroke-width", 2)
-          .attr("fill", "none")
-          .attr("class", lineClass);
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <script type="text/javascript" src="./d3.min.js"></script>
+    <style>
+      .axis text {
+        font: 10px sans-serif;
+        color: #000;
       }
 
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+      }
+    </style>
+  </head>
 
-      svg.append("rect")
-        .attr("x", "650")
-        .attr("y", "270")
-        .attr("height", "10")
-        .attr("width", "10")
-        .attr("fill", "red")
-        .attr("class", "hide1");
-      svg.append("rect")
-        .attr("x", "650")
-        .attr("y", "290")
-        .attr("height", "10")
-        .attr("width", "10")
-        .attr("fill", "green")
-        .attr("class", "hide2");
-      svg.append("rect")
-        .attr("x", "650")
-        .attr("y", "310")
-        .attr("height", "10")
-        .attr("width", "10")
-        .attr("fill", "blue")
-        .attr("class", "hide3");
-      svg.append("rect")
-        .attr("x", "650")
-        .attr("y", "330")
-        .attr("height", "10")
-        .attr("width", "10")
-        .attr("fill", "orange")
-        .attr("class", "hide4");
+  <body data-gr-c-s-loaded="true">
+    <svg
+      id="mySVG"
+      width="1500"
+      height="1000"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    ></svg>
+    <br />
+    <script type="text/javascript">
+      var jsondata; //global to store json data
 
-      svg.append("text")
-        .attr("x", "670")
-        .attr("y", "280")
-        .text("wmt")
-        .style("font", "12px sans-serif")
-        .attr("class", "hideTextData2011");
-      svg.append("text")
-        .attr("x", "670")
-        .attr("y", "300")
-        .text("amzn")
-        .style("font", "12px sans-serif")
-        .attr("class", "hideTextData2012");
-      svg.append("text")
-        .attr("x", "670")
-        .attr("y", "320")
-        .text("ebay")
-        .style("font", "12px sans-serif")
-        .attr("class", "hideTextData2013");
-      svg.append("text")
-        .attr("x", "670")
-        .attr("y", "340")
-        .text("tgt")
-        .style("font", "12px sans-serif")
-        .attr("class", "hideTextData2014");
+      var svg = d3.select('svg');
+      //Padding to give you room for axes and labels
+      svg.style('padding-left', 100);
+      svg.style('padding-bottom', 100);
 
-      svg.append("text")
-        .attr("x", "-140")
-        .attr("y", "-5")
-        .text("Temp for October in Degrees")
-        .style("font", "10px sans-serif")
-        .attr("transform", "rotate(-90)");
-
-      var newdataset = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
-      var shown11 = true;
-      var shown12 = true;
-      var shown13 = true;
-      var shown14 = true;
-
-      d3.select(".hideData2011").on("click", function () {
-        if (shown11 == true) {
-          shown11 = false;
-          d3.select(".hideData2011").attr("opacity", "0.5");
-          d3.select(".hideTextData2011").attr("fill-opacity", "0.5")
-          d3.select(".line2011").transition().duration(2000).attr("d", lineFunction(newdataset));
-        } else if (shown11 == false) {
-          shown11 = true;
-          d3.select(".hideData2011").attr("opacity", "1");
-          d3.select(".hideTextData2011").attr("fill-opacity", "1")
-          d3.select(".line2011").transition().duration(2000).attr("d", lineFunction(jsondata.data[2011]));
-        }
+      d3.json('comp-rev.json').then(function(data) {
+        console.log(data);
+        jsondata = data;
+        drawData(); //you need to create this function
       });
-      d3.select(".hideData2012").on("click", function () {
-        if (shown12 == true) {
-          shown12 = false;
-          d3.select(".hideData2012").attr("opacity", "0.5");
-          d3.select(".hideTextData2012").attr("fill-opacity", "0.5")
-          d3.select(".line2012").transition().duration(2000).attr("d", lineFunction(newdataset));
-        } else if (shown12 == false) {
-          shown12 = true;
-          d3.select(".hideData2012").attr("opacity", "1");
-          d3.select(".hideTextData2012").attr("fill-opacity", "1")
-          d3.select(".line2012").transition().duration(2000).attr("d", lineFunction(jsondata.data[2012]));
+
+      var sy = d3
+        .scaleLinear()
+        .domain([0, 140])
+        .range([500, 0]);
+      var yaxis = d3
+        .axisLeft(sy)
+        .ticks(14)
+        .tickFormat(d3.format('~s'));
+      var sx = d3
+        .scaleLinear()
+        .domain([0, 48])
+        .range([21, 1051]);
+      var xaxis = d3
+        .axisBottom(sx)
+        .ticks(20)
+        .tickFormat(d3.format('~s'));
+
+      function drawData() {
+        svg
+          .append('g')
+          .attr('class', 'xaxis')
+          .attr('transform', 'translate(13,510)')
+          .call(xaxis);
+        svg
+          .append('g')
+          .attr('class', 'yaxis')
+          .attr('transform', 'translate(25,9)')
+          .call(yaxis);
+
+        for (var x = 1; x <= 4; x++) {
+          var color = 'black';
+          var id = 0;
+          var value = jsondata.data[x];
+          var lineFunction = d3
+            .line()
+            .x(function(d, i) {
+              return (i + 1.6) * (800 / 38);
+            })
+            .y(function(d, i) {
+              return 510 - d * 3.5;
+            });
+
+          if (x == 1) {
+            lineClass = 'wmt';
+            color = 'red';
+          }
+          if (x == 2) {
+            lineClass = 'amzn';
+            color = 'green';
+          }
+          if (x == 3) {
+            lineClass = 'ebay';
+            color = 'blue';
+          }
+          if (x == 4) {
+            lineClass = 'tgt';
+            color = 'orange';
+          }
+
+          svg
+            .append('path')
+            .attr('d', lineFunction(value))
+            .attr('stroke', color)
+            .attr('stroke-width', 2)
+            .attr('fill', 'none')
+            .attr('class', lineClass);
         }
-      });
-      d3.select(".hideData2013").on("click", function () {
-        if (shown13 == true) {
-          shown13 = false;
-          d3.select(".hideData2013").attr("opacity", "0.5");
-          d3.select(".hideTextData2013").attr("fill-opacity", "0.5")
-          d3.select(".line2013").transition().duration(2000).attr("d", lineFunction(newdataset));
-        } else if (shown13 == false) {
-          shown13 = true;
-          d3.select(".hideData2013").attr("opacity", "1");
-          d3.select(".hideTextData2013").attr("fill-opacity", "1")
-          d3.select(".line2013").transition().duration(2000).attr("d", lineFunction(jsondata.data[2013]));
-        }
-      });
-      d3.select(".hideData2014").on("click", function () {
-        if (shown14 == true) {
-          shown14 = false;
-          d3.select(".hideData2014").attr("opacity", "0.5");
-          d3.select(".hideTextData2014").attr("fill-opacity", "0.5")
-          d3.select(".line2014").transition().duration(2000).attr("d", lineFunction(newdataset));
-        } else if (shown14 == false) {
-          shown14 = true;
-          d3.select(".hideData2014").attr("opacity", "1");
-          d3.select(".hideTextData2014").attr("fill-opacity", "1")
-          d3.select(".line2014").transition().duration(2000).attr("d", lineFunction(jsondata.data[2014]));
-        }
-      });
-    }
-  </script>
 
+        svg
+          .append('rect')
+          .attr('x', '950')
+          .attr('y', '170')
+          .attr('height', '10')
+          .attr('width', '10')
+          .attr('fill', 'red')
+          .attr('class', 'hideWMTb');
+        svg
+          .append('rect')
+          .attr('x', '950')
+          .attr('y', '190')
+          .attr('height', '10')
+          .attr('width', '10')
+          .attr('fill', 'green')
+          .attr('class', 'hideAMZNb');
+        svg
+          .append('rect')
+          .attr('x', '950')
+          .attr('y', '210')
+          .attr('height', '10')
+          .attr('width', '10')
+          .attr('fill', 'blue')
+          .attr('class', 'hideEBAYb');
+        svg
+          .append('rect')
+          .attr('x', '950')
+          .attr('y', '230')
+          .attr('height', '10')
+          .attr('width', '10')
+          .attr('fill', 'orange')
+          .attr('class', 'hideTGTb');
 
+        svg
+          .append('text')
+          .attr('x', '970')
+          .attr('y', '180')
+          .text('wmt')
+          .style('font', '12px sans-serif')
+          .attr('class', 'hideWMT');
+        svg
+          .append('text')
+          .attr('x', '970')
+          .attr('y', '200')
+          .text('amzn')
+          .style('font', '12px sans-serif')
+          .attr('class', 'hideAMZN');
+        svg
+          .append('text')
+          .attr('x', '970')
+          .attr('y', '220')
+          .text('ebay')
+          .style('font', '12px sans-serif')
+          .attr('class', 'hideEBAY');
+        svg
+          .append('text')
+          .attr('x', '970')
+          .attr('y', '240')
+          .text('tgt')
+          .style('font', '12px sans-serif')
+          .attr('class', 'hideTGT');
 
-</body>
+        svg
+          .append('text')
+          .attr('x', '-120')
+          .attr('y', '40')
+          .text('Total Revenues (billions)')
+          .style('font', '10px sans-serif')
+          .attr('transform', 'rotate(-90)');
 
+        var newdataset = [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ];
+        var showWMT = true;
+        var showAMZN = true;
+        var showEBAY = true;
+        var showTGT = true;
+
+        d3.select('.hideWMTb').on('click', function() {
+          if (showWMT == true) {
+            showWMT = false;
+            d3.select('.hideWMT').attr('opacity', '0.5');
+            d3.select('.hideWMTb').attr('fill-opacity', '0.5');
+            d3.select('.wmt')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(newdataset));
+          } else if (showWMT == false) {
+            showWMT = true;
+            d3.select('.hideWMT').attr('opacity', '1');
+            d3.select('.hideWMTb').attr('fill-opacity', '1');
+            d3.select('.wmt')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(jsondata.data[1]));
+          }
+        });
+        d3.select('.hideAMZNb').on('click', function() {
+          if (showAMZN == true) {
+            showAMZN = false;
+            d3.select('.hideAMZN').attr('opacity', '0.5');
+            d3.select('.hideAMZNb').attr('fill-opacity', '0.5');
+            d3.select('.amzn')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(newdataset));
+          } else if (showAMZN == false) {
+            showAMZN = true;
+            d3.select('.hideAMZN').attr('opacity', '1');
+            d3.select('.hideAMZNb').attr('fill-opacity', '1');
+            d3.select('.amzn')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(jsondata.data[2]));
+          }
+        });
+        d3.select('.hideEBAYb').on('click', function() {
+          if (showEBAY == true) {
+            showEBAY = false;
+            d3.select('.hideEBAY').attr('opacity', '0.5');
+            d3.select('.hideEBAYb').attr('fill-opacity', '0.5');
+            d3.select('.ebay')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(newdataset));
+          } else if (showEBAY == false) {
+            showEBAY = true;
+            d3.select('.hideEBAY').attr('opacity', '1');
+            d3.select('.hideEBAYb').attr('fill-opacity', '1');
+            d3.select('.ebay')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(jsondata.data[3]));
+          }
+        });
+        d3.select('.hideTGTb').on('click', function() {
+          if (showTGT == true) {
+            showTGT = false;
+            d3.select('.hideTGT').attr('opacity', '0.5');
+            d3.select('.hideTGTb').attr('fill-opacity', '0.5');
+            d3.select('.tgt')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(newdataset));
+          } else if (showTGT == false) {
+            showTGT = true;
+            d3.select('.hideTGT').attr('opacity', '1');
+            d3.select('.hideTGTb').attr('fill-opacity', '1');
+            d3.select('.tgt')
+              .transition()
+              .duration(2000)
+              .attr('d', lineFunction(jsondata.data[4]));
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
