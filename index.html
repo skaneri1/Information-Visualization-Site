@@ -14,6 +14,12 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
   <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <!-- Styling for Line Graph -->
   <style>
   .axis text {
     font: 10px sans-serif;
@@ -30,6 +36,29 @@
   <!-- Styling CSS -->
   <style type="text/css">
 
+  /* Pie Chart Styling*/
+  #chartdiv {
+    width: 100%;
+    height: 500px;
+  }
+
+  #chartdiv2 {
+    width: 100%;
+    height: 500px;
+  }
+
+  /* Bar Chart Styling*/
+  #chartdiv3 {
+  width: 100%;
+  height: 500px;
+  }
+
+  .amcharts-export-menu-top-right {
+    top: 10px;
+    right: 0;
+  }
+
+  /* Web Page Styling*/
   .block1 h1{
     padding: 30px;
     font-family: serif;
@@ -88,16 +117,44 @@
   }
   .block5 h2{
     padding: 50px;
-    color: #fff;
+    color: #000;
     font-family: serif;
     font-style: oblique;
     text-align: center;
   }
-  .block6 h2{
+  .block5 h4{
     padding: 50px;
-    color: #fff;
+    color: #000;
+    font-family: serif;
+    font-style: italic;
+    text-align: center;
+  }
+  .block55 h2{
+    padding: 50px;
+    color: #000;
     font-family: serif;
     font-style: oblique;
+    text-align: center;
+  }
+  .block55 h4{
+    padding: 50px;
+    color: #000;
+    font-family: serif;
+    font-style: italic;
+    text-align: center;
+  }
+  .block6 h2{
+    padding: 50px;
+    color: #000;
+    font-family: serif;
+    font-style: oblique;
+    text-align: center;
+  }
+  .block6 h4{
+    padding: 50px;
+    color: #000;
+    font-family: serif;
+    font-style: italic;
     text-align: center;
   }
   .block7 h2{
@@ -139,11 +196,15 @@
   }
   .block5 {
     min-height: 600px;
-    background-color:rgb(40,40,45);
+    background-color:rgb(175,170,170);
+  }
+  .block55 {
+    min-height: 700px;
+    background-color:rgb(100,100,100);
   }
   .block6 {
     min-height: 600px;
-    background-color:rgb(57,53,53);
+    background-color:rgb(200,200,200);
   }
   .block7 {
     min-height: 600px;
@@ -183,7 +244,10 @@
           <a class="nav-link" href="#blk4">Line Graph (Interactive)</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#blk5">Pie Charts</a>
+          <a class="nav-link" href="#blk5">Pie Chart (2017)</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blk55">Pie Chart (2018)</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#blk6">Spicy Bar Graph</a>
@@ -250,15 +314,29 @@
 
     <section id="blk5">
     <div class="block5">
-      <h2>Visual Analysis #2: Pie Charts</h2>
+      <h2>Visual Analysis #2: Pie Chart (2017)</h2>
+      <div id="chartdiv"></div>
+      <h4>Using 2017 revenue data to compare ONLINE income for Amazon, Ebay, Walmart,
+        and all other competitors</h4>
+    </div>
+    </section>
 
+    <section id="blk55">
+    <div class="block55">
+      <h2>Visual Analysis #2: Pie Chart (2018)</h2>
+      <div id="chartdiv2"></div>
+      <h4>Using 2018 revenue data to compare ONLINE income for Amazon, Ebay, Walmart,
+        and all other competitors</h4>
     </div>
     </section>
 
     <section id="blk6">
     <div class="block6">
       <h2>Visual Analysis #3: Spicy Bar Graph</h2>
-
+        <div id="chartdiv3"></div>
+      <h4>Data represented is the head to head comparison of three of the top five
+        companies that rule the online marketspace. The revenues show the results of the
+        key acquisitions made by Amazon and Walmart, and the stagnation of EBay.</h4>
     </div>
     </section>
 
@@ -282,6 +360,129 @@
 
     <!-- Add Script for h5 graphic -->
     <script type="text/javascript">
+
+    // Bar Chart JS
+    // Create chart instance
+    var chart3 = am4core.create("chartdiv3", am4charts.XYChart);
+    chart3.scrollbarX = new am4core.Scrollbar();
+
+    // Add data
+    chart3.data = [{
+      "company": "EBay",
+      "value": 10.216
+    }, {
+      "company": "Walmart",
+      "value": 20.91
+    }, {
+      "company": "Amazon",
+      "value": 252.1
+    } ];
+
+    // Create axes
+    var categoryAxis = chart3.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.dataFields.category = "company";
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.renderer.minGridDistance = 30;
+    categoryAxis.renderer.labels.template.horizontalCenter = "right";
+    categoryAxis.renderer.labels.template.verticalCenter = "middle";
+    categoryAxis.renderer.labels.template.rotation = 270;
+    categoryAxis.tooltip.disabled = true;
+    categoryAxis.renderer.minHeight = 110;
+
+    var valueAxis = chart3.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.renderer.minWidth = 50;
+
+    // Create series
+    var series = chart3.series.push(new am4charts.ColumnSeries());
+    series.sequencedInterpolation = true;
+    series.dataFields.valueY = "value";
+    series.dataFields.categoryX = "company";
+    series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+    series.columns.template.strokeWidth = 0;
+
+    series.tooltip.pointerOrientation = "vertical";
+
+    series.columns.template.column.cornerRadiusTopLeft = 10;
+    series.columns.template.column.cornerRadiusTopRight = 10;
+    series.columns.template.column.fillOpacity = 0.8;
+
+    // on hover, make corner radiuses bigger
+    let hoverState = series.columns.template.column.states.create("hover");
+    hoverState.properties.cornerRadiusTopLeft = 0;
+    hoverState.properties.cornerRadiusTopRight = 0;
+    hoverState.properties.fillOpacity = 1;
+
+    series.columns.template.adapter.add("fill", (fill, target)=>{
+      return chart3.colors.getIndex(target.dataItem.index);
+    })
+
+    // Cursor
+    chart3.cursor = new am4charts.XYCursor();
+
+    // Pie Chart JS
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    var chart = am4core.create("chartdiv", am4charts.PieChart);
+    var chart2 = am4core.create("chartdiv2", am4charts.PieChart);
+    // Add data (2017)
+    chart.data = [ {
+      "company": "Amazon",
+      "revenue": 43.1
+    }, {
+      "company": "Other",
+      "revenue": 46.0
+    }, {
+      "company": "EBay",
+      "revenue": 7.6
+    }, {
+      "company": "Walmart",
+      "revenue": 3.3
+    } ];
+
+    // Add data (2018)
+    chart2.data = [ {
+      "company": "Amazon",
+      "revenue": 48.0
+    }, {
+      "company": "Other",
+      "revenue": 40.8
+    }, {
+      "company": "EBay",
+      "revenue": 7.2
+    }, {
+      "company": "Walmart",
+      "revenue": 4.0
+    } ];
+
+    // Add and configure Series (2017)
+    var pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "revenue";
+    pieSeries.dataFields.category = "company";
+    pieSeries.slices.template.stroke = am4core.color("#000");
+    pieSeries.slices.template.strokeWidth = 2;
+    pieSeries.slices.template.strokeOpacity = 1;
+
+    // This creates initial animation (2017)
+    pieSeries.hiddenState.properties.opacity = 1;
+    pieSeries.hiddenState.properties.endAngle = -90;
+    pieSeries.hiddenState.properties.startAngle = -90;
+
+    // Add and configure Series (2018)
+    var pieSeries2 = chart2.series.push(new am4charts.PieSeries());
+    pieSeries2.dataFields.value = "revenue";
+    pieSeries2.dataFields.category = "company";
+    pieSeries2.slices.template.stroke = am4core.color("#000");
+    pieSeries2.slices.template.strokeWidth = 2;
+    pieSeries2.slices.template.strokeOpacity = 1;
+
+    // This creates initial animation (2018)
+    pieSeries2.hiddenState.properties.opacity = 1;
+    pieSeries2.hiddenState.properties.endAngle = -90;
+    pieSeries2.hiddenState.properties.startAngle = -90;
+
+    //Line Graph Script
     var jsondata; //global to store json data
 
     var svg = d3.select('svg');
