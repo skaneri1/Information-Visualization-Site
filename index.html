@@ -1,113 +1,547 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <style type="text/css">
-      .block1 h1{
-        padding: 30px;
-        font-family: serif;
-      }
-      .block1 h3{
-        color: #fff;
-        font-family: serif;
-      }
-      .block2 h2{
-        padding: 50px;
-        color: #fff;
-        font-family: serif;
-        font-style: oblique;
-      }
-      .block2 h4{
-        padding-left: 100px;
-        padding-right: 100px;
-        color: #D5D5D5;
-        font-family: serif;
-        font-style: oblique;
-        font-size: 30px;
-      }
-      .block3 h2{
-        padding: 50px;
-        color: #fff;
-        font-family: serif;
-        font-style: oblique;
-        text-align: center;
-      }
-      .block1 {
-        padding-top: 10px;
-        min-height: 650px;
-        background: url('finalpic.jpeg');
-        background-size: cover;
-        color: #fff;
-        text-align: center;
-      }
-      .block2 {
-        min-height: 600px;
-        background: url('abswp.jpg');
-        background-size: cover;
-        text-align: center;
-      }
-      .block3 {
-        min-height: 600px;
-        background-color:rgb(30,30,30);
-      }
-    </style>
-    <title>Retail Revenues</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Retail Revenues</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#blk2">Abstract<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Line Graph</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Visual2</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Closing</a>
-      </li>
-    </ul>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!-- Importing h5 Graphic -->
+
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+  <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+  <style>
+  .axis text {
+    font: 10px sans-serif;
+    color: #000;
+  }
+
+  .axis path,
+  .axis line {
+    fill: #FFF;
+    stroke: #FFF;
+  }
+  </style>
+
+  <!-- Styling CSS -->
+  <style type="text/css">
+
+  .block1 h1{
+    padding: 30px;
+    font-family: serif;
+    color: #D5D5D5;
+  }
+  .block1 h3{
+    color: #FFF;
+    font-family: serif;
+    font-style: oblique;
+  }
+  .block2 h2{
+    padding: 50px;
+    color: #FFF;
+    font-family: serif;
+    font-style: oblique;
+  }
+  .block2 h4{
+    padding-left: 100px;
+    padding-right: 100px;
+    color: #D5D5D5;
+    font-family: serif;
+    font-style: oblique;
+    font-size: 30px;
+  }
+  .block3 h2{
+    padding: 50px;
+    color: #FFF;
+    font-family: serif;
+    font-style: oblique;
+    text-align: center;
+  }
+  .block4 h2{
+    padding: 50px;
+    color: #fff;
+    font-family: serif;
+    font-style: oblique;
+    text-align: center;
+  }
+  .block4 h4{
+    padding: 50px;
+    padding-left: 100px;
+    padding-right: 100px;
+    color: #fff;
+    font-family: serif;
+    font-style: oblique;
+    text-align: center;
+  }
+  .block5 h2{
+    padding: 50px;
+    color: #fff;
+    font-family: serif;
+    font-style: oblique;
+    text-align: center;
+  }
+  .block6 h2{
+    padding: 50px;
+    color: #fff;
+    font-family: serif;
+    font-style: oblique;
+    text-align: center;
+  }
+  .block7 h2{
+    padding: 50px;
+    color: #fff;
+    font-family: serif;
+    font-style: oblique;
+    text-align: center;
+  }
+  .block1 {
+    padding-top: 10px;
+    min-height: 650px;
+    background: url('finalpic.jpeg');
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+  }
+  .block2 {
+    min-height: 600px;
+    background: url('abswp.jpg');
+    background-size: cover;
+    text-align: center;
+  }
+  .block3 {
+    min-height: 600px;
+    background-color:rgb(57,53,53);
+  }
+  .block4 {
+    min-height: 900px;
+    background-color:rgb(20,20,20);
+  }
+  .block5 {
+    min-height: 600px;
+    background-color:rgb(40,40,45);
+  }
+  .block6 {
+    min-height: 600px;
+    background-color:rgb(57,53,53);
+  }
+  .block7 {
+    min-height: 300px;
+    background-color:rgb(100,100,100);
+    background: url('conc.jpg');
+    background-size: cover;
+  }
+  .yaxis{
+    color: #fff;
+  }
+  .xaxis{
+    color: #fff;
+  }
+  </style>
+  <title>Retail Revenues</title>
+</head>
+
+
+
+<!-- Body -->
+<body data-gr-c-s-loaded="true">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#blk1">Retail Revenues</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#blk2">Abstract</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blk3">Line Graph</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blk4">Line Graph (Interactive)</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blk5">Bar Graph</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blk6">Spicy Bar Graph</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#blk7">Conclusion</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="blk1">
+  <div class="block1">
+    <h1>Retail Revenues</h1>
+    <h3>Physical Space? Online Presence? Porque no los dos?</h3>
+    <h3>Project By: Anthony Freay & Shlok Kaneria</h3>
+
   </div>
-    </nav>
+  </section>
 
-   <div class="block1">
-      <h1>Retail Revenues</h1>
-      <h3>Physical Space? Online Presence? Porque no los dos?</h3>
-      <h3>Project By: Anthony Freay & Shlok Kaneria</h3>
-
-   </div>
   <section id="blk2">
-   <div class="block2">
+    <div class="block2">
       <h2>Abstract</h2>
       <h4>In this project, we begin to delve into the analysis of how different corporations
-      have either perfected or are trying to perfect the presence of their entities in both the physical
-      and online marketplaces. Through our findings, we attempt to prove why it is vital for
-      companies to be successful in both sectors in order to maximize revenue. Our data consists of quarterly
-      revenue for four of today's biggest online/physical retailers, including Walmart, Amazon, Ebay, and Target.</h4>
-   </div>
-   </section>
-   <div class="block3">
-      <h2>Visual Analysis #1: Line Graph</h2>
+        have either perfected or are trying to perfect the presence of their entities in both the physical
+        and online marketplaces. Through our findings, we attempt to prove why it is vital for
+        companies to be successful in both sectors in order to maximize revenue. Our data consists of quarterly
+        revenue for four of today's biggest online/physical retailers, including Walmart, Amazon, Ebay, and Target.</h4>
+      </div>
+    </section>
 
-   </div>
+    <section id="blk3">
+    <div class="block3">
+      <h2>Visual Analysis #1: Line Graph (Static)</h2>
 
+    </div>
+    </section>
+
+    <section id="blk4">
+    <div class="block4">
+      <h2>Visual Analysis #1: Line Graph (Interactive)</h2>
+      <svg
+        id="mySVG"
+        width="1200"
+        height="550"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+      </svg>
+    <h4>This visual portrays the total revenue made available to us. As we see, the spike
+      in revenue at Q1 shows how the holiday season has a big impact in the
+      performance of these corporations. The interactivity of this line graph allows us to
+      compare how the different companies have trended over time and how various acquisitions
+      have played a role.</h4>
+    </div>
+    </section>
+
+    <section id="blk5">
+    <div class="block5">
+      <h2>Visual Analysis #2: Bar Graph</h2>
+
+    </div>
+    </section>
+
+    <section id="blk6">
+    <div class="block6">
+      <h2>Visual Analysis #3: Spicy Bar Graph</h2>
+
+    </div>
+    </section>
+
+    <section id="blk7">
+    <div class="block7">
+      <h2>Conclusion</h2>
+
+    </div>
+    </section>
+
+    <!-- Add Script for h5 graphic -->
+    <script type="text/javascript">
+    var jsondata; //global to store json data
+
+    var svg = d3.select('svg');
+    //Padding to give you room for axes and labels
+    svg.style('padding-left', 150);
+    svg.style('padding-bottom', 100);
+
+    d3.json('comp-rev.json').then(function(data) {
+      console.log(data);
+      jsondata = data;
+      drawData(); //you need to create this function
+    });
+
+    var sy = d3
+    .scaleLinear()
+    .domain([0, 140])
+    .range([500, 0]);
+    var yaxis = d3
+    .axisLeft(sy)
+    .ticks(14)
+    .tickFormat(d3.format('~s'));
+    var sx = d3
+    .scaleLinear()
+    .domain([0, 48])
+    .range([21, 1051]);
+    var xaxis = d3
+    .axisBottom(sx)
+    .ticks(20)
+    .tickFormat(d3.format('~s'));
+
+    function drawData() {
+      svg
+      .append('g')
+      .attr('class', 'xaxis')
+      .attr('transform', 'translate(13,510)')
+      .call(xaxis)
+      .style('stroke', 'white');
+      svg
+      .append('g')
+      .attr('class', 'yaxis')
+      .attr('transform', 'translate(25,9)')
+      .call(yaxis)
+      .style('stroke', 'white');
+
+      for (var x = 1; x <= 4; x++) {
+        var color = 'black';
+        var id = 0;
+        var value = jsondata.data[x];
+        var lineFunction = d3
+        .line()
+        .x(function(d, i) {
+          return (i + 1.6) * (800 / 38);
+        })
+        .y(function(d, i) {
+          return 510 - d * 3.5;
+        });
+
+        if (x == 1) {
+          lineClass = 'wmt';
+          color = 'red';
+        }
+        if (x == 2) {
+          lineClass = 'amzn';
+          color = 'green';
+        }
+        if (x == 3) {
+          lineClass = 'ebay';
+          color = 'blue';
+        }
+        if (x == 4) {
+          lineClass = 'tgt';
+          color = 'orange';
+        }
+
+        svg
+        .append('path')
+        .attr('d', lineFunction(value))
+        .attr('stroke', color)
+        .attr('stroke-width', 2)
+        .attr('fill', 'none')
+        .attr('class', lineClass);
+      }
+
+      svg
+      .append('rect')
+      .attr('x', '950')
+      .attr('y', '170')
+      .attr('height', '10')
+      .attr('width', '10')
+      .attr('fill', 'red')
+      .attr('class', 'hideWMTb');
+      svg
+      .append('rect')
+      .attr('x', '950')
+      .attr('y', '190')
+      .attr('height', '10')
+      .attr('width', '10')
+      .attr('fill', 'green')
+      .attr('class', 'hideAMZNb');
+      svg
+      .append('rect')
+      .attr('x', '950')
+      .attr('y', '210')
+      .attr('height', '10')
+      .attr('width', '10')
+      .attr('fill', 'blue')
+      .attr('class', 'hideEBAYb');
+      svg
+      .append('rect')
+      .attr('x', '950')
+      .attr('y', '230')
+      .attr('height', '10')
+      .attr('width', '10')
+      .attr('fill', 'orange')
+      .attr('class', 'hideTGTb');
+
+      svg
+      .append('text')
+      .attr('x', '970')
+      .attr('y', '180')
+      .text('wmt')
+      .style('font', '12px sans-serif')
+      .attr('class', 'hideWMT')
+      .style('fill', 'white');
+      svg
+      .append('text')
+      .attr('x', '970')
+      .attr('y', '200')
+      .text('amzn')
+      .style('font', '12px sans-serif')
+      .attr('class', 'hideAMZN')
+      .style('fill', 'white');
+      svg
+      .append('text')
+      .attr('x', '970')
+      .attr('y', '220')
+      .text('ebay')
+      .style('font', '12px sans-serif')
+      .attr('class', 'hideEBAY')
+      .style('fill', 'white');
+      svg
+      .append('text')
+      .attr('x', '970')
+      .attr('y', '240')
+      .text('tgt')
+      .style('font', '12px sans-serif')
+      .attr('class', 'hideTGT')
+      .style('fill', 'white');
+      svg
+      .append('text')
+      .attr('x', '-120')
+      .attr('y', '40')
+      .text('Total Revenues (billions)')
+      .style('fill', 'white')
+      .style('font', '10px sans-serif')
+      .attr('transform', 'rotate(-90)');
+
+      var newdataset = [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ];
+      var showWMT = true;
+      var showAMZN = true;
+      var showEBAY = true;
+      var showTGT = true;
+
+      d3.select('.hideWMTb').on('click', function() {
+        if (showWMT == true) {
+          showWMT = false;
+          d3.select('.hideWMT').attr('opacity', '0.5');
+          d3.select('.hideWMTb').attr('fill-opacity', '0.5');
+          d3.select('.wmt')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(newdataset));
+        } else if (showWMT == false) {
+          showWMT = true;
+          d3.select('.hideWMT').attr('opacity', '1');
+          d3.select('.hideWMTb').attr('fill-opacity', '1');
+          d3.select('.wmt')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(jsondata.data[1]));
+        }
+      });
+      d3.select('.hideAMZNb').on('click', function() {
+        if (showAMZN == true) {
+          showAMZN = false;
+          d3.select('.hideAMZN').attr('opacity', '0.5');
+          d3.select('.hideAMZNb').attr('fill-opacity', '0.5');
+          d3.select('.amzn')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(newdataset));
+        } else if (showAMZN == false) {
+          showAMZN = true;
+          d3.select('.hideAMZN').attr('opacity', '1');
+          d3.select('.hideAMZNb').attr('fill-opacity', '1');
+          d3.select('.amzn')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(jsondata.data[2]));
+        }
+      });
+      d3.select('.hideEBAYb').on('click', function() {
+        if (showEBAY == true) {
+          showEBAY = false;
+          d3.select('.hideEBAY').attr('opacity', '0.5');
+          d3.select('.hideEBAYb').attr('fill-opacity', '0.5');
+          d3.select('.ebay')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(newdataset));
+        } else if (showEBAY == false) {
+          showEBAY = true;
+          d3.select('.hideEBAY').attr('opacity', '1');
+          d3.select('.hideEBAYb').attr('fill-opacity', '1');
+          d3.select('.ebay')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(jsondata.data[3]));
+        }
+      });
+      d3.select('.hideTGTb').on('click', function() {
+        if (showTGT == true) {
+          showTGT = false;
+          d3.select('.hideTGT').attr('opacity', '0.5');
+          d3.select('.hideTGTb').attr('fill-opacity', '0.5');
+          d3.select('.tgt')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(newdataset));
+        } else if (showTGT == false) {
+          showTGT = true;
+          d3.select('.hideTGT').attr('opacity', '1');
+          d3.select('.hideTGTb').attr('fill-opacity', '1');
+          d3.select('.tgt')
+          .transition()
+          .duration(2000)
+          .attr('d', lineFunction(jsondata.data[4]));
+        }
+      });
+    }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
-</html>
+  </html>
